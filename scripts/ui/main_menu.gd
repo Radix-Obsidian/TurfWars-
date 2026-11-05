@@ -37,7 +37,7 @@ func _on_collection_button_pressed() -> void:
 
 # Phase 0 SaveManager Test Handlers
 func _on_save_test_pressed() -> void:
-	var test_code := "TestVal_" + str(Time.get_unix_time_from_system() % 10000)
+	var test_code := "TestVal_" + str(int(Time.get_unix_time_from_system()) % 10000)
 	SaveManager.set_value("test_value", test_code)
 	var success := SaveManager.save_game()
 	if success:
