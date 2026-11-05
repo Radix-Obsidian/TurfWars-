@@ -9,6 +9,7 @@ data_*/
 mono_crash.*.json
 
 # Export / OS
+build/
 *.apk
 *.aab
 *.keystore
