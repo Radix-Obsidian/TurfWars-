@@ -111,6 +111,14 @@ theme_override_constants/shadow_offset_y = 2
 theme_override_font_sizes/font_size = 15
 text = "💀 3,250 REP +"
 
+[node name="BtnFacility" type="Button" parent="HUD/TopBar/HBox/StatsBox"]
+custom_minimum_size = Vector2(80, 42)
+layout_mode = 2
+focus_mode = 0
+theme_override_colors/font_color = Color(0.2, 0.95, 0.4, 1)
+theme_override_font_sizes/font_size = 12
+text = "🏢 FACILITY"
+
 [node name="BottomConsole" type="Control" parent="HUD"]
 layout_mode = 3
 anchors_preset = 12
@@ -233,4 +241,5 @@ text = "ATTACK TERRITORY
 ⚔️ THE EAST CREW ⚔️"
 
 [connection signal="pressed" from="HUD/TopBar/HBox/AvatarBox/BtnBack" to="." method="_on_back_to_menu_pressed"]
+[connection signal="pressed" from="HUD/TopBar/HBox/StatsBox/BtnFacility" to="." method="_on_facility_button_pressed"]
 [connection signal="pressed" from="HUD/BottomConsole/VBox/ConsoleHBox/AttackButtonPanel/BtnAttackTerritory" to="." method="_on_attack_territory_pressed"]

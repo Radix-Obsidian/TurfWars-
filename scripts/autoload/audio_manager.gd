@@ -30,6 +30,10 @@ func _generate_procedural_sfx() -> void:
 	sound_cache["unit_death"] = _create_wav(380.0, 140.0, 0.18, "sawtooth")
 	sound_cache["victory"] = _create_wav(523.0, 784.0, 0.45, "sine")
 	sound_cache["defeat"] = _create_wav(280.0, 130.0, 0.5, "triangle")
+	sound_cache["cash_register"] = _create_wav(987.0, 1318.0, 0.22, "sine")
+	sound_cache["upgrade"] = _create_wav(440.0, 880.0, 0.28, "triangle")
+	sound_cache["speedup"] = _create_wav(500.0, 1200.0, 0.25, "sine")
+	sound_cache["harvest"] = _create_wav(350.0, 700.0, 0.12, "sine")
 
 func _create_wav(start_freq: float, end_freq: float, duration: float, wave_type: String) -> AudioStreamWAV:
 	var sample_rate := 22050

@@ -103,6 +103,10 @@ func _on_attack_territory_pressed() -> void:
 func _on_back_to_menu_pressed() -> void:
 	GameManager.load_main_menu()
 
+func _on_facility_button_pressed() -> void:
+	AudioManager.play_sound("card_drop")
+	GameManager.load_idle()
+
 func _on_battle_ended(won: bool, territory_id: String) -> void:
 	if won and territory_id != "":
 		if not owned_territory_ids.has(territory_id):

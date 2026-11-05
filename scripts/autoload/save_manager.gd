@@ -14,11 +14,27 @@ func _ready() -> void:
 func _initialize_default_data() -> void:
 	data = {
 		"version": 1,
-		"test_value": "Phase 0 Verified",
-		"cash": 500,
-		"rep": 0,
-		"heat": 0,
-		"owned_territories": [],
+		"test_value": "Phase 3 Verified",
+		"cash": 248735,
+		"gems": 1250,
+		"product": 342,
+		"raw_herb": 78,
+		"rep": 3250,
+		"heat": 75,
+		"owned_territories": ["the_yard", "the_lockup"],
+		"facility_levels": {
+			"grow_capacity": 78,
+			"grow_capacity_max": 100,
+			"drying_rack_level": 12,
+			"processing_pct": 64.0,
+			"daily_sales_progress": 89,
+			"daily_sales_max": 100,
+			"better_lights": 8,
+			"auto_trimmer": 6,
+			"security": 7,
+			"sales_boost": 5
+		},
+		"manager_bonus": 2.0,
 		"active_deck": [
 			"street_runner", "brickwall", "chem_thrower", "enforcer",
 			"lookout", "rooftop_racer", "molotov", "supply_drop"
@@ -85,6 +101,31 @@ func load_game() -> bool:
 			if not cur_deck.has(cid):
 				cur_deck.append(cid)
 		data["active_deck"] = cur_deck
+
+		if not data.has("gems"):
+			data["gems"] = 1250
+		if not data.has("product"):
+			data["product"] = 342
+		if not data.has("raw_herb"):
+			data["raw_herb"] = 78
+		if not data.has("manager_bonus"):
+			data["manager_bonus"] = 2.0
+		if not data.has("facility_levels") or not (data["facility_levels"] is Dictionary):
+			data["facility_levels"] = {
+				"grow_capacity": 78,
+				"grow_capacity_max": 100,
+				"drying_rack_level": 12,
+				"processing_pct": 64.0,
+				"daily_sales_progress": 89,
+				"daily_sales_max": 100,
+				"better_lights": 8,
+				"auto_trimmer": 6,
+				"security": 7,
+				"sales_boost": 5
+			}
+		if not data.has("owned_territories") or (data["owned_territories"] as Array).is_empty():
+			data["owned_territories"] = ["the_yard", "the_lockup"]
+
 		EventBus.save_loaded.emit(true)
 		return true
 

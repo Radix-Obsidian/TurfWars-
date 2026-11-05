@@ -1,6 +1,7 @@
-[gd_scene load_steps=2 format=3]
+[gd_scene load_steps=3 format=3]
 
-[ext_resource type="Script" path="res://scripts/idle/idle_scene.gd" id="1_idle"]
+[ext_resource type="Script" path="res://scripts/idle/idle_scene.gd" id="1_scene"]
+[ext_resource type="Script" path="res://scripts/idle/idle_facility_view.gd" id="2_view"]
 
 [node name="IdleHub" type="Control"]
 layout_mode = 3
@@ -9,67 +10,683 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-script = ExtResource("1_idle")
+script = ExtResource("1_scene")
 
-[node name="Background" type="ColorRect" parent="."]
+[node name="IdleFacilityView" type="Node2D" parent="."]
+unique_name_in_owner = true
+script = ExtResource("2_view")
+
+[node name="HUD" type="CanvasLayer" parent="."]
+
+[node name="TopBar" type="MarginContainer" parent="HUD"]
+anchors_preset = 10
+anchor_right = 1.0
+offset_bottom = 86.0
+grow_horizontal = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 8
+theme_override_constants/margin_right = 10
+
+[node name="Background" type="ColorRect" parent="HUD/TopBar"]
+layout_mode = 2
+color = Color(0.06, 0.06, 0.08, 0.94)
+
+[node name="HBox" type="HBoxContainer" parent="HUD/TopBar"]
+layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="AvatarBox" type="HBoxContainer" parent="HUD/TopBar/HBox"]
+layout_mode = 2
+theme_override_constants/separation = 6
+
+[node name="BtnBack" type="Button" parent="HUD/TopBar/HBox/AvatarBox"]
+custom_minimum_size = Vector2(36, 42)
+layout_mode = 2
+focus_mode = 0
+theme_override_font_sizes/font_size = 18
+text = "<"
+
+[node name="AvatarFrame" type="ColorRect" parent="HUD/TopBar/HBox/AvatarBox"]
+custom_minimum_size = Vector2(46, 46)
+layout_mode = 2
+color = Color(0.18, 0.14, 0.22, 1)
+
+[node name="AvatarLabel" type="Label" parent="HUD/TopBar/HBox/AvatarBox/AvatarFrame"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-color = Color(0.06, 0.08, 0.06, 1)
-
-[node name="MarginContainer" type="MarginContainer" parent="."]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-theme_override_constants/margin_left = 32
-theme_override_constants/margin_top = 40
-theme_override_constants/margin_right = 32
-theme_override_constants/margin_bottom = 40
-
-[node name="VBox" type="VBoxContainer" parent="MarginContainer"]
-layout_mode = 2
-theme_override_constants/separation = 20
-
-[node name="Header" type="HBoxContainer" parent="MarginContainer/VBox"]
-layout_mode = 2
-
-[node name="BtnBack" type="Button" parent="MarginContainer/VBox/Header"]
-custom_minimum_size = Vector2(100, 48)
-layout_mode = 2
-theme_override_font_sizes/font_size = 16
-text = "< BACK"
-
-[node name="LabelTitle" type="Label" parent="MarginContainer/VBox/Header"]
-layout_mode = 2
-size_flags_horizontal = 3
-theme_override_colors/font_color = Color(0.17, 0.91, 0.47, 1)
 theme_override_font_sizes/font_size = 24
-text = "IDLE HUB"
-horizontal_alignment = 2
+text = "🕶️"
+horizontal_alignment = 1
+vertical_alignment = 1
 
-[node name="CenterBox" type="VBoxContainer" parent="MarginContainer/VBox"]
+[node name="CashColumn" type="VBoxContainer" parent="HUD/TopBar/HBox"]
 layout_mode = 2
-size_flags_vertical = 3
+theme_override_constants/separation = 0
 alignment = 1
 
-[node name="LabelStatus" type="Label" parent="MarginContainer/VBox/CenterBox"]
+[node name="LabelCash" type="Label" parent="HUD/TopBar/HBox/CashColumn"]
+unique_name_in_owner = true
 layout_mode = 2
 theme_override_colors/font_color = Color(0.17, 0.91, 0.47, 1)
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_constants/shadow_offset_x = 2
+theme_override_constants/shadow_offset_y = 2
 theme_override_font_sizes/font_size = 20
-text = "GROW • PROCESS • SELL"
-horizontal_alignment = 1
+text = "$ 248,735"
 
-[node name="LabelDesc" type="Label" parent="MarginContainer/VBox/CenterBox"]
+[node name="LabelHourlyRate" type="Label" parent="HUD/TopBar/HBox/CashColumn"]
+unique_name_in_owner = true
 layout_mode = 2
-theme_override_colors/font_color = Color(0.65, 0.65, 0.75, 1)
-theme_override_font_sizes/font_size = 15
-text = "Idle production chains & offline progression will be expanded in Phase 3."
+theme_override_colors/font_color = Color(0.35, 0.95, 0.45, 1)
+theme_override_font_sizes/font_size = 12
+text = "+$4,250 /hr ⬆"
+
+[node name="Spacer" type="Control" parent="HUD/TopBar/HBox"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="RightPills" type="HBoxContainer" parent="HUD/TopBar/HBox"]
+layout_mode = 2
+theme_override_constants/separation = 8
+
+[node name="GemsPill" type="ColorRect" parent="HUD/TopBar/HBox/RightPills"]
+custom_minimum_size = Vector2(85, 36)
+layout_mode = 2
+size_flags_vertical = 4
+color = Color(0.12, 0.10, 0.16, 1)
+
+[node name="HBoxGems" type="HBoxContainer" parent="HUD/TopBar/HBox/RightPills/GemsPill"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+alignment = 1
+
+[node name="GemIcon" type="Label" parent="HUD/TopBar/HBox/RightPills/GemsPill/HBoxGems"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 14
+text = "💎"
+
+[node name="LabelGems" type="Label" parent="HUD/TopBar/HBox/RightPills/GemsPill/HBoxGems"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_colors/font_color = Color(0.9, 0.6, 1, 1)
+theme_override_font_sizes/font_size = 13
+text = "1,250"
+
+[node name="ProductPill" type="ColorRect" parent="HUD/TopBar/HBox/RightPills"]
+custom_minimum_size = Vector2(80, 36)
+layout_mode = 2
+size_flags_vertical = 4
+color = Color(0.08, 0.14, 0.10, 1)
+
+[node name="HBoxProd" type="HBoxContainer" parent="HUD/TopBar/HBox/RightPills/ProductPill"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+alignment = 1
+
+[node name="ProdIcon" type="Label" parent="HUD/TopBar/HBox/RightPills/ProductPill/HBoxProd"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 14
+text = "🌿"
+
+[node name="LabelProduct" type="Label" parent="HUD/TopBar/HBox/RightPills/ProductPill/HBoxProd"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_colors/font_color = Color(0.35, 0.95, 0.45, 1)
+theme_override_font_sizes/font_size = 13
+text = "342"
+
+[node name="BtnSettings" type="Button" parent="HUD/TopBar/HBox/RightPills"]
+custom_minimum_size = Vector2(36, 36)
+layout_mode = 2
+size_flags_vertical = 4
+focus_mode = 0
+theme_override_font_sizes/font_size = 16
+text = "⚙️"
+
+[node name="GrowRoomHUD" type="HBoxContainer" parent="HUD"]
+anchors_preset = 10
+anchor_right = 1.0
+offset_left = 24.0
+offset_top = 398.0
+offset_right = -24.0
+offset_bottom = 432.0
+grow_horizontal = 2
+theme_override_constants/separation = 12
+alignment = 1
+
+[node name="LabelCapTitle" type="Label" parent="HUD/GrowRoomHUD"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.85, 0.85, 0.9, 1)
+theme_override_font_sizes/font_size = 12
+text = "CAPACITY"
+
+[node name="BarCapacity" type="ProgressBar" parent="HUD/GrowRoomHUD"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(480, 18)
+layout_mode = 2
+size_flags_vertical = 4
+max_value = 100.0
+value = 78.0
+show_percentage = false
+
+[node name="LabelCapacity" type="Label" parent="HUD/GrowRoomHUD"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_colors/font_color = Color(0.2, 0.95, 0.4, 1)
+theme_override_font_sizes/font_size = 13
+text = "78 / 100"
+
+[node name="BtnUpgradeCapacity" type="Button" parent="HUD/GrowRoomHUD"]
+custom_minimum_size = Vector2(32, 28)
+layout_mode = 2
+focus_mode = 0
+theme_override_colors/font_color = Color(0.9, 0.5, 1, 1)
+theme_override_font_sizes/font_size = 14
+text = "▲"
+
+[node name="ProcessingHUD" type="VBoxContainer" parent="HUD"]
+anchors_preset = 10
+anchor_right = 1.0
+offset_left = 24.0
+offset_top = 638.0
+offset_right = -24.0
+offset_bottom = 712.0
+grow_horizontal = 2
+theme_override_constants/separation = 6
+
+[node name="RowProcessing" type="HBoxContainer" parent="HUD/ProcessingHUD"]
+layout_mode = 2
+theme_override_constants/separation = 12
+
+[node name="LabelProcTitle" type="Label" parent="HUD/ProcessingHUD/RowProcessing"]
+custom_minimum_size = Vector2(90, 0)
+layout_mode = 2
+theme_override_colors/font_color = Color(0.85, 0.85, 0.9, 1)
+theme_override_font_sizes/font_size = 12
+text = "PROCESSING"
+
+[node name="BarProcessing" type="ProgressBar" parent="HUD/ProcessingHUD/RowProcessing"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(240, 16)
+layout_mode = 2
+size_flags_vertical = 4
+max_value = 100.0
+value = 64.0
+show_percentage = false
+
+[node name="LabelProcessingPct" type="Label" parent="HUD/ProcessingHUD/RowProcessing"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(50, 0)
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 0.85, 0.25, 1)
+theme_override_font_sizes/font_size = 13
+text = "64%"
+
+[node name="Spacer" type="Control" parent="HUD/ProcessingHUD/RowProcessing"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="BtnSpeedUp" type="Button" parent="HUD/ProcessingHUD/RowProcessing"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(170, 32)
+layout_mode = 2
+focus_mode = 0
+theme_override_colors/font_color = Color(0.95, 0.6, 1, 1)
+theme_override_font_sizes/font_size = 13
+text = "SPEED UP 💎 x2"
+
+[node name="RowDrying" type="HBoxContainer" parent="HUD/ProcessingHUD"]
+layout_mode = 2
+theme_override_constants/separation = 12
+
+[node name="LabelDryingTitle" type="Label" parent="HUD/ProcessingHUD/RowDrying"]
+custom_minimum_size = Vector2(90, 0)
+layout_mode = 2
+theme_override_colors/font_color = Color(0.85, 0.85, 0.9, 1)
+theme_override_font_sizes/font_size = 12
+text = "Drying Rack"
+
+[node name="BarDrying" type="ProgressBar" parent="HUD/ProcessingHUD/RowDrying"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(240, 16)
+layout_mode = 2
+size_flags_vertical = 4
+max_value = 100.0
+value = 60.0
+show_percentage = false
+
+[node name="LabelDryingLvl" type="Label" parent="HUD/ProcessingHUD/RowDrying"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(50, 0)
+layout_mode = 2
+theme_override_colors/font_color = Color(0.3, 0.95, 0.45, 1)
+theme_override_font_sizes/font_size = 13
+text = "LVL 12"
+
+[node name="Spacer" type="Control" parent="HUD/ProcessingHUD/RowDrying"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="BtnUpgradeDrying" type="Button" parent="HUD/ProcessingHUD/RowDrying"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(170, 32)
+layout_mode = 2
+focus_mode = 0
+theme_override_colors/font_color = Color(0.2, 0.95, 0.4, 1)
+theme_override_font_sizes/font_size = 13
+text = "UPGRADE $6,750"
+
+[node name="StreetSalesHUD" type="HBoxContainer" parent="HUD"]
+anchors_preset = 10
+anchor_right = 1.0
+offset_left = 24.0
+offset_top = 932.0
+offset_right = -24.0
+offset_bottom = 966.0
+grow_horizontal = 2
+theme_override_constants/separation = 12
+alignment = 1
+
+[node name="LabelSalesTitle" type="Label" parent="HUD/StreetSalesHUD"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.85, 0.85, 0.9, 1)
+theme_override_font_sizes/font_size = 12
+text = "DAILY SALES"
+
+[node name="BarDailySales" type="ProgressBar" parent="HUD/StreetSalesHUD"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(470, 18)
+layout_mode = 2
+size_flags_vertical = 4
+max_value = 100.0
+value = 89.0
+show_percentage = false
+
+[node name="LabelDailySales" type="Label" parent="HUD/StreetSalesHUD"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 0.4, 0.3, 1)
+theme_override_font_sizes/font_size = 13
+text = "89 / 100"
+
+[node name="BtnUpgradeDailySales" type="Button" parent="HUD/StreetSalesHUD"]
+custom_minimum_size = Vector2(32, 28)
+layout_mode = 2
+focus_mode = 0
+theme_override_colors/font_color = Color(1, 0.3, 0.3, 1)
+theme_override_font_sizes/font_size = 14
+text = "▲"
+
+[node name="QuickUpgradesBar" type="HBoxContainer" parent="HUD"]
+anchors_preset = 10
+anchor_right = 1.0
+offset_left = 14.0
+offset_top = 985.0
+offset_right = -14.0
+offset_bottom = 1120.0
+grow_horizontal = 2
+theme_override_constants/separation = 8
+
+[node name="UpgradeCard1" type="ColorRect" parent="HUD/QuickUpgradesBar"]
+layout_mode = 2
+size_flags_horizontal = 3
+color = Color(0.12, 0.12, 0.14, 0.95)
+
+[node name="VBox" type="VBoxContainer" parent="HUD/QuickUpgradesBar/UpgradeCard1"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 4
+alignment = 1
+
+[node name="IconTitle" type="Label" parent="HUD/QuickUpgradesBar/UpgradeCard1/VBox"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 11
+text = "💡 LIGHTS"
 horizontal_alignment = 1
 
-[connection signal="pressed" from="MarginContainer/VBox/Header/BtnBack" to="." method="_on_back_pressed"]
+[node name="LabelLightsLvl" type="Label" parent="HUD/QuickUpgradesBar/UpgradeCard1/VBox"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_colors/font_color = Color(0.65, 0.65, 0.7, 1)
+theme_override_font_sizes/font_size = 10
+text = "LVL 8"
+horizontal_alignment = 1
+
+[node name="BarLights" type="ProgressBar" parent="HUD/QuickUpgradesBar/UpgradeCard1/VBox"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 8)
+layout_mode = 2
+max_value = 100.0
+value = 80.0
+show_percentage = false
+
+[node name="BtnUpgradeLights" type="Button" parent="HUD/QuickUpgradesBar/UpgradeCard1/VBox"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 32)
+layout_mode = 2
+focus_mode = 0
+theme_override_colors/font_color = Color(0.2, 0.95, 0.4, 1)
+theme_override_font_sizes/font_size = 12
+text = "$12,500"
+
+[node name="UpgradeCard2" type="ColorRect" parent="HUD/QuickUpgradesBar"]
+layout_mode = 2
+size_flags_horizontal = 3
+color = Color(0.12, 0.12, 0.14, 0.95)
+
+[node name="VBox" type="VBoxContainer" parent="HUD/QuickUpgradesBar/UpgradeCard2"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 4
+alignment = 1
+
+[node name="IconTitle" type="Label" parent="HUD/QuickUpgradesBar/UpgradeCard2/VBox"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 11
+text = "⚙️ TRIMMER"
+horizontal_alignment = 1
+
+[node name="LabelTrimmerLvl" type="Label" parent="HUD/QuickUpgradesBar/UpgradeCard2/VBox"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_colors/font_color = Color(0.65, 0.65, 0.7, 1)
+theme_override_font_sizes/font_size = 10
+text = "LVL 6"
+horizontal_alignment = 1
+
+[node name="BarTrimmer" type="ProgressBar" parent="HUD/QuickUpgradesBar/UpgradeCard2/VBox"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 8)
+layout_mode = 2
+max_value = 100.0
+value = 60.0
+show_percentage = false
+
+[node name="BtnUpgradeTrimmer" type="Button" parent="HUD/QuickUpgradesBar/UpgradeCard2/VBox"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 32)
+layout_mode = 2
+focus_mode = 0
+theme_override_colors/font_color = Color(0.2, 0.95, 0.4, 1)
+theme_override_font_sizes/font_size = 12
+text = "$9,300"
+
+[node name="UpgradeCard3" type="ColorRect" parent="HUD/QuickUpgradesBar"]
+layout_mode = 2
+size_flags_horizontal = 3
+color = Color(0.12, 0.12, 0.14, 0.95)
+
+[node name="VBox" type="VBoxContainer" parent="HUD/QuickUpgradesBar/UpgradeCard3"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 4
+alignment = 1
+
+[node name="IconTitle" type="Label" parent="HUD/QuickUpgradesBar/UpgradeCard3/VBox"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 11
+text = "🛡️ SECURITY"
+horizontal_alignment = 1
+
+[node name="LabelSecurityLvl" type="Label" parent="HUD/QuickUpgradesBar/UpgradeCard3/VBox"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_colors/font_color = Color(0.65, 0.65, 0.7, 1)
+theme_override_font_sizes/font_size = 10
+text = "LVL 7"
+horizontal_alignment = 1
+
+[node name="BarSecurity" type="ProgressBar" parent="HUD/QuickUpgradesBar/UpgradeCard3/VBox"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 8)
+layout_mode = 2
+max_value = 100.0
+value = 70.0
+show_percentage = false
+
+[node name="BtnUpgradeSecurity" type="Button" parent="HUD/QuickUpgradesBar/UpgradeCard3/VBox"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 32)
+layout_mode = 2
+focus_mode = 0
+theme_override_colors/font_color = Color(0.2, 0.95, 0.4, 1)
+theme_override_font_sizes/font_size = 12
+text = "$15,000"
+
+[node name="UpgradeCard4" type="ColorRect" parent="HUD/QuickUpgradesBar"]
+layout_mode = 2
+size_flags_horizontal = 3
+color = Color(0.12, 0.12, 0.14, 0.95)
+
+[node name="VBox" type="VBoxContainer" parent="HUD/QuickUpgradesBar/UpgradeCard4"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 4
+alignment = 1
+
+[node name="IconTitle" type="Label" parent="HUD/QuickUpgradesBar/UpgradeCard4/VBox"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 11
+text = "🛒 BOOST"
+horizontal_alignment = 1
+
+[node name="LabelBoostLvl" type="Label" parent="HUD/QuickUpgradesBar/UpgradeCard4/VBox"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_colors/font_color = Color(0.65, 0.65, 0.7, 1)
+theme_override_font_sizes/font_size = 10
+text = "LVL 5"
+horizontal_alignment = 1
+
+[node name="BarBoost" type="ProgressBar" parent="HUD/QuickUpgradesBar/UpgradeCard4/VBox"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 8)
+layout_mode = 2
+max_value = 100.0
+value = 50.0
+show_percentage = false
+
+[node name="BtnUpgradeBoost" type="Button" parent="HUD/QuickUpgradesBar/UpgradeCard4/VBox"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 32)
+layout_mode = 2
+focus_mode = 0
+theme_override_colors/font_color = Color(0.9, 0.5, 1, 1)
+theme_override_font_sizes/font_size = 12
+text = "120 💎"
+
+[node name="BottomNavBar" type="HBoxContainer" parent="HUD"]
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 10.0
+offset_top = -80.0
+offset_right = -10.0
+offset_bottom = -12.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_constants/separation = 6
+
+[node name="BtnTabFacility" type="Button" parent="HUD/BottomNavBar"]
+layout_mode = 2
+size_flags_horizontal = 3
+focus_mode = 0
+theme_override_colors/font_color = Color(0.2, 0.95, 0.4, 1)
+theme_override_font_sizes/font_size = 11
+text = "🏢
+FACILITY"
+
+[node name="BtnTabUpgrades" type="Button" parent="HUD/BottomNavBar"]
+layout_mode = 2
+size_flags_horizontal = 3
+focus_mode = 0
+theme_override_colors/font_color = Color(0.85, 0.85, 0.9, 1)
+theme_override_font_sizes/font_size = 11
+text = "🔧
+UPGRADES"
+
+[node name="BtnTabManagers" type="Button" parent="HUD/BottomNavBar"]
+layout_mode = 2
+size_flags_horizontal = 3
+focus_mode = 0
+theme_override_colors/font_color = Color(0.85, 0.85, 0.9, 1)
+theme_override_font_sizes/font_size = 11
+text = "👤
+MANAGERS"
+
+[node name="BtnTabSupplies" type="Button" parent="HUD/BottomNavBar"]
+layout_mode = 2
+size_flags_horizontal = 3
+focus_mode = 0
+theme_override_colors/font_color = Color(0.85, 0.85, 0.9, 1)
+theme_override_font_sizes/font_size = 11
+text = "📦
+SUPPLIES"
+
+[node name="BtnTabMap" type="Button" parent="HUD/BottomNavBar"]
+layout_mode = 2
+size_flags_horizontal = 3
+focus_mode = 0
+theme_override_colors/font_color = Color(1, 0.4, 0.4, 1)
+theme_override_font_sizes/font_size = 11
+text = "📍
+MAP"
+
+[node name="BtnTabShop" type="Button" parent="HUD/BottomNavBar"]
+layout_mode = 2
+size_flags_horizontal = 3
+focus_mode = 0
+theme_override_colors/font_color = Color(0.85, 0.85, 0.9, 1)
+theme_override_font_sizes/font_size = 11
+text = "👜
+SHOP !"
+
+[node name="ModalOfflineEarnings" type="ColorRect" parent="HUD"]
+unique_name_in_owner = true
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 0.65)
+
+[node name="CenterBox" type="CenterContainer" parent="HUD/ModalOfflineEarnings"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="PopupPanel" type="ColorRect" parent="HUD/ModalOfflineEarnings/CenterBox"]
+custom_minimum_size = Vector2(480, 260)
+layout_mode = 2
+color = Color(0.10, 0.09, 0.13, 0.98)
+
+[node name="VBox" type="VBoxContainer" parent="HUD/ModalOfflineEarnings/CenterBox/PopupPanel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 20.0
+offset_top = 16.0
+offset_right = -20.0
+offset_bottom = -16.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 8
+alignment = 1
+
+[node name="HeaderHBox" type="HBoxContainer" parent="HUD/ModalOfflineEarnings/CenterBox/PopupPanel/VBox"]
+layout_mode = 2
+
+[node name="LabelTitle" type="Label" parent="HUD/ModalOfflineEarnings/CenterBox/PopupPanel/VBox/HeaderHBox"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_colors/font_color = Color(0.85, 0.35, 1, 1)
+theme_override_font_sizes/font_size = 18
+text = "🕒 OFFLINE EARNINGS"
+
+[node name="BtnCloseOffline" type="Button" parent="HUD/ModalOfflineEarnings/CenterBox/PopupPanel/VBox/HeaderHBox"]
+custom_minimum_size = Vector2(32, 32)
+layout_mode = 2
+focus_mode = 0
+theme_override_colors/font_color = Color(0.2, 0.9, 0.4, 1)
+theme_override_font_sizes/font_size = 16
+text = "✕"
+
+[node name="LabelSub" type="Label" parent="HUD/ModalOfflineEarnings/CenterBox/PopupPanel/VBox"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.8, 0.8, 0.85, 1)
+theme_override_font_sizes/font_size = 14
+text = "You earned while away:"
+horizontal_alignment = 1
+
+[node name="LabelOfflineAmount" type="Label" parent="HUD/ModalOfflineEarnings/CenterBox/PopupPanel/VBox"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_colors/font_color = Color(0.17, 0.95, 0.47, 1)
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_constants/shadow_offset_x = 2
+theme_override_constants/shadow_offset_y = 2
+theme_override_font_sizes/font_size = 36
+text = "$18,642"
+horizontal_alignment = 1
+
+[node name="LabelOfflineBonus" type="Label" parent="HUD/ModalOfflineEarnings/CenterBox/PopupPanel/VBox"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_colors/font_color = Color(0.85, 0.85, 0.9, 1)
+theme_override_font_sizes/font_size = 13
+text = "💀 x2 Manager Bonus Applied!"
+horizontal_alignment = 1
+
+[node name="BtnCollectOffline" type="Button" parent="HUD/ModalOfflineEarnings/CenterBox/PopupPanel/VBox"]
+custom_minimum_size = Vector2(0, 48)
+layout_mode = 2
+focus_mode = 0
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_font_sizes/font_size = 18
+text = "COLLECT"
+
+[connection signal="pressed" from="HUD/TopBar/HBox/AvatarBox/BtnBack" to="." method="_on_back_pressed"]
+[connection signal="pressed" from="HUD/GrowRoomHUD/BtnUpgradeCapacity" to="." method="_on_upgrade_capacity_pressed"]
+[connection signal="pressed" from="HUD/ProcessingHUD/RowProcessing/BtnSpeedUp" to="." method="_on_speed_up_pressed"]
+[connection signal="pressed" from="HUD/ProcessingHUD/RowDrying/BtnUpgradeDrying" to="." method="_on_upgrade_drying_pressed"]
+[connection signal="pressed" from="HUD/StreetSalesHUD/BtnUpgradeDailySales" to="." method="_on_upgrade_daily_sales_pressed"]
+[connection signal="pressed" from="HUD/QuickUpgradesBar/UpgradeCard1/VBox/BtnUpgradeLights" to="." method="_on_upgrade_lights_pressed"]
+[connection signal="pressed" from="HUD/QuickUpgradesBar/UpgradeCard2/VBox/BtnUpgradeTrimmer" to="." method="_on_upgrade_trimmer_pressed"]
+[connection signal="pressed" from="HUD/QuickUpgradesBar/UpgradeCard3/VBox/BtnUpgradeSecurity" to="." method="_on_upgrade_security_pressed"]
+[connection signal="pressed" from="HUD/QuickUpgradesBar/UpgradeCard4/VBox/BtnUpgradeBoost" to="." method="_on_upgrade_boost_pressed"]
+[connection signal="pressed" from="HUD/BottomNavBar/BtnTabMap" to="." method="_on_map_tab_pressed"]
+[connection signal="pressed" from="HUD/ModalOfflineEarnings/CenterBox/PopupPanel/VBox/HeaderHBox/BtnCloseOffline" to="." method="_on_close_offline_pressed"]
+[connection signal="pressed" from="HUD/ModalOfflineEarnings/CenterBox/PopupPanel/VBox/BtnCollectOffline" to="." method="_on_collect_offline_pressed"]

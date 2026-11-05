@@ -12,6 +12,10 @@ signal save_loaded(success: bool)
 signal cash_changed(new_amount: int, delta: int)
 signal rep_changed(new_amount: int, delta: int)
 signal heat_changed(new_amount: int, delta: int)
+signal gems_changed(new_amount: int, delta: int)
+signal product_changed(new_amount: int, delta: int)
+signal raw_herb_changed(new_amount: int, delta: int)
+signal facility_upgraded(upgrade_id: String, new_level: int)
 
 # Battle lifecycle signals
 signal battle_started(territory_id: String)
