@@ -1,0 +1,87 @@
+[gd_scene load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://scripts/campaign/campaign_scene.gd" id="1_campaign"]
+
+[node name="Campaign" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_campaign")
+
+[node name="Background" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.05, 0.07, 0.09, 1)
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 32
+theme_override_constants/margin_top = 40
+theme_override_constants/margin_right = 32
+theme_override_constants/margin_bottom = 40
+
+[node name="VBox" type="VBoxContainer" parent="MarginContainer"]
+layout_mode = 2
+theme_override_constants/separation = 20
+
+[node name="Header" type="HBoxContainer" parent="MarginContainer/VBox"]
+layout_mode = 2
+
+[node name="BtnBack" type="Button" parent="MarginContainer/VBox/Header"]
+custom_minimum_size = Vector2(100, 48)
+layout_mode = 2
+theme_override_font_sizes/font_size = 16
+text = "< BACK"
+
+[node name="LabelTitle" type="Label" parent="MarginContainer/VBox/Header"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_colors/font_color = Color(0.17, 0.91, 0.47, 1)
+theme_override_font_sizes/font_size = 24
+text = "CAMPAIGN MAP"
+horizontal_alignment = 2
+
+[node name="CenterBox" type="VBoxContainer" parent="MarginContainer/VBox"]
+layout_mode = 2
+size_flags_vertical = 3
+alignment = 1
+
+[node name="LabelStatus" type="Label" parent="MarginContainer/VBox/CenterBox"]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 0.82, 0.25, 1)
+theme_override_font_sizes/font_size = 20
+text = "DISTRICT 1: THE SLUMS"
+horizontal_alignment = 1
+
+[node name="LabelDesc" type="Label" parent="MarginContainer/VBox/CenterBox"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.65, 0.65, 0.75, 1)
+theme_override_font_sizes/font_size = 15
+text = "Territory nodes & claim mechanics will be expanded in Phase 2."
+horizontal_alignment = 1
+
+[node name="Spacer" type="Control" parent="MarginContainer/VBox/CenterBox"]
+custom_minimum_size = Vector2(0, 20)
+layout_mode = 2
+
+[node name="BtnLaunchTerritory" type="Button" parent="MarginContainer/VBox/CenterBox"]
+custom_minimum_size = Vector2(0, 54)
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 0.2, 0.33, 1)
+theme_override_font_sizes/font_size = 18
+text = "SCOUT & ATTACK BLOCK 01"
+
+[connection signal="pressed" from="MarginContainer/VBox/Header/BtnBack" to="." method="_on_back_pressed"]
+[connection signal="pressed" from="MarginContainer/VBox/CenterBox/BtnLaunchTerritory" to="." method="_on_attack_territory_pressed" binds= ["block_01"]]

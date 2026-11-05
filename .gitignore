@@ -1,0 +1,16 @@
+# Godot 4 .gitignore
+.godot/
+*.translation
+*.tmp
+
+# Mono / C#
+.mono/
+data_*/
+mono_crash.*.json
+
+# Export / OS
+*.apk
+*.aab
+*.keystore
+.DS_Store
+Thumbs.db

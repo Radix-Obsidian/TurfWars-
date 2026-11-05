@@ -1,0 +1,21 @@
+[gd_resource type="Resource" script_class="CardData" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://scripts/data/card_data.gd" id="1_card"]
+
+[resource]
+script = ExtResource("1_card")
+id = "enforcer"
+display_name = "Enforcer"
+description = "Street-hardened frontline bruiser. Well-balanced damage and durability."
+card_type = 0
+elixir_cost = 4
+rarity = 0
+movement_type = 0
+target_type = 1
+base_hp = 480
+base_damage = 58
+attack_interval = 1.1
+attack_range = 50.0
+move_speed = 70.0
+hp_growth_per_level = 0.1
+damage_growth_per_level = 0.1

@@ -1,0 +1,21 @@
+[gd_resource type="Resource" script_class="CardData" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://scripts/data/card_data.gd" id="1_card"]
+
+[resource]
+script = ExtResource("1_card")
+id = "brickwall"
+display_name = "Brickwall"
+description = "Heavy brawler with riot shield. Absorbs massive punishment while advancing."
+card_type = 0
+elixir_cost = 5
+rarity = 1
+movement_type = 0
+target_type = 1
+base_hp = 850
+base_damage = 50
+attack_interval = 1.4
+attack_range = 40.0
+move_speed = 45.0
+hp_growth_per_level = 0.12
+damage_growth_per_level = 0.08
