@@ -1,0 +1,29 @@
+[gd_resource type="Resource" script_class="CardData" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://scripts/data/card_data.gd" id="1_card"]
+
+[resource]
+script = ExtResource("1_card")
+id = "lookout"
+display_name = "Lookout"
+description = "Vigilant rooftop scout with a scoped rifle. Targets both ground and air from high range."
+card_type = 0
+elixir_cost = 3
+rarity = 0
+movement_type = 0
+target_type = 1
+base_hp = 220
+base_damage = 55
+attack_interval = 1.1
+attack_range = 210.0
+move_speed = 68.0
+is_splash = false
+splash_radius = 0.0
+spell_radius = 0.0
+base_spell_damage = 0
+spell_duration = 0.0
+spawn_count = 1
+spawn_unit_id = ""
+accent_color = Color(0.3, 0.75, 1, 1)
+hp_growth_per_level = 0.08
+damage_growth_per_level = 0.12

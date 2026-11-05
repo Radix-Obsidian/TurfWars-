@@ -1,77 +1,313 @@
-[gd_scene load_steps=2 format=3]
+[gd_scene load_steps=4 format=3]
 
-[ext_resource type="Script" path="res://scripts/battle/battle_scene.gd" id="1_battle"]
+[ext_resource type="Script" path="res://scripts/battle/battle_arena.gd" id="1_arena"]
+[ext_resource type="Script" path="res://scripts/battle/arena_view.gd" id="2_view"]
+[ext_resource type="Script" path="res://scripts/battle/battle_ai.gd" id="3_ai"]
 
-[node name="Battle" type="Control"]
+[node name="Battle" type="Node2D"]
+script = ExtResource("1_arena")
+
+[node name="Camera2D" type="Camera2D" parent="."]
+anchor_mode = 0
+
+[node name="ArenaView" type="Node2D" parent="."]
+script = ExtResource("2_view")
+
+[node name="TowersContainer" type="Node2D" parent="."]
+
+[node name="UnitsContainer" type="Node2D" parent="."]
+
+[node name="ProjectilesContainer" type="Node2D" parent="."]
+
+[node name="VFXContainer" type="Node2D" parent="."]
+
+[node name="BattleAI" type="Node" parent="."]
+script = ExtResource("3_ai")
+
+[node name="HUD" type="CanvasLayer" parent="."]
+
+[node name="TopBar" type="MarginContainer" parent="HUD"]
+anchors_preset = 10
+anchor_right = 1.0
+offset_bottom = 76.0
+grow_horizontal = 2
+theme_override_constants/margin_left = 16
+theme_override_constants/margin_top = 16
+theme_override_constants/margin_right = 16
+
+[node name="HBox" type="HBoxContainer" parent="HUD/TopBar"]
+layout_mode = 2
+
+[node name="BtnRetreat" type="Button" parent="HUD/TopBar/HBox"]
+custom_minimum_size = Vector2(90, 42)
+layout_mode = 2
+theme_override_font_sizes/font_size = 14
+text = "< RETREAT"
+
+[node name="Spacer" type="Control" parent="HUD/TopBar/HBox"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="LabelCrownsEnemy" type="Label" parent="HUD/TopBar/HBox"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 0.22, 0.35, 1)
+theme_override_font_sizes/font_size = 16
+text = "ENEMY: 0"
+
+[node name="LabelTimer" type="Label" parent="HUD/TopBar/HBox"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_constants/shadow_offset_x = 2
+theme_override_constants/shadow_offset_y = 2
+theme_override_font_sizes/font_size = 22
+text = "3:00"
+horizontal_alignment = 1
+
+[node name="LabelCrownsPlayer" type="Label" parent="HUD/TopBar/HBox"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_colors/font_color = Color(0.17, 0.91, 0.47, 1)
+theme_override_font_sizes/font_size = 16
+text = "PLAYER: 0"
+
+[node name="BannerDoubleElixir" type="Control" parent="HUD"]
+unique_name_in_owner = true
+visible = false
+layout_mode = 3
+anchors_preset = 14
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_top = -40.0
+offset_bottom = 40.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="ColorRect" type="ColorRect" parent="HUD/BannerDoubleElixir"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.69, 0.15, 1, 0.85)
+
+[node name="Label" type="Label" parent="HUD/BannerDoubleElixir"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_constants/shadow_offset_x = 3
+theme_override_constants/shadow_offset_y = 3
+theme_override_font_sizes/font_size = 28
+text = "⚡ DOUBLE ELIXIR ⚡"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="BottomDock" type="Control" parent="HUD"]
+layout_mode = 3
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -180.0
+grow_horizontal = 2
+grow_vertical = 0
+
+[node name="Background" type="ColorRect" parent="HUD/BottomDock"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.07, 0.07, 0.09, 0.95)
+
+[node name="VBox" type="VBoxContainer" parent="HUD/BottomDock"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 8
+
+[node name="ElixirBarContainer" type="MarginContainer" parent="HUD/BottomDock/VBox"]
+layout_mode = 2
+theme_override_constants/margin_left = 20
+theme_override_constants/margin_top = 8
+theme_override_constants/margin_right = 20
+
+[node name="HBox" type="HBoxContainer" parent="HUD/BottomDock/VBox/ElixirBarContainer"]
+layout_mode = 2
+theme_override_constants/separation = 12
+
+[node name="LabelIcon" type="Label" parent="HUD/BottomDock/VBox/ElixirBarContainer/HBox"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.85, 0.25, 1, 1)
+theme_override_font_sizes/font_size = 18
+text = "⚡ ELIXIR:"
+
+[node name="ProgressElixir" type="ProgressBar" parent="HUD/BottomDock/VBox/ElixirBarContainer/HBox"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 20)
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 4
+max_value = 10.0
+step = 0.1
+value = 5.0
+show_percentage = false
+
+[node name="LabelElixir" type="Label" parent="HUD/BottomDock/VBox/ElixirBarContainer/HBox"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(60, 0)
+layout_mode = 2
+theme_override_colors/font_color = Color(0.85, 0.25, 1, 1)
+theme_override_font_sizes/font_size = 18
+text = "5 / 10"
+horizontal_alignment = 2
+
+[node name="DeckContainer" type="MarginContainer" parent="HUD/BottomDock/VBox"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_constants/margin_left = 12
+theme_override_constants/margin_right = 12
+theme_override_constants/margin_bottom = 12
+
+[node name="HBox" type="HBoxContainer" parent="HUD/BottomDock/VBox/DeckContainer"]
+layout_mode = 2
+theme_override_constants/separation = 8
+
+[node name="SlotNextCard" type="Button" parent="HUD/BottomDock/VBox/DeckContainer/HBox"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+focus_mode = 0
+theme_override_colors/font_color = Color(0.65, 0.65, 0.75, 1)
+theme_override_font_sizes/font_size = 13
+disabled = true
+text = "NEXT:\nRunner"
+
+[node name="CardSlotsContainer" type="HBoxContainer" parent="HUD/BottomDock/VBox/DeckContainer/HBox"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 8
+
+[node name="CardBtn0" type="Button" parent="HUD/BottomDock/VBox/DeckContainer/HBox/CardSlotsContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+focus_mode = 0
+theme_override_font_sizes/font_size = 14
+text = "Card 1"
+
+[node name="CardBtn1" type="Button" parent="HUD/BottomDock/VBox/DeckContainer/HBox/CardSlotsContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+focus_mode = 0
+theme_override_font_sizes/font_size = 14
+text = "Card 2"
+
+[node name="CardBtn2" type="Button" parent="HUD/BottomDock/VBox/DeckContainer/HBox/CardSlotsContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+focus_mode = 0
+theme_override_font_sizes/font_size = 14
+text = "Card 3"
+
+[node name="CardBtn3" type="Button" parent="HUD/BottomDock/VBox/DeckContainer/HBox/CardSlotsContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+focus_mode = 0
+theme_override_font_sizes/font_size = 14
+text = "Card 4"
+
+[node name="PanelGameOver" type="Control" parent="HUD"]
+unique_name_in_owner = true
+visible = false
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-script = ExtResource("1_battle")
 
-[node name="Background" type="ColorRect" parent="."]
+[node name="OverlayBackdrop" type="ColorRect" parent="HUD/PanelGameOver"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-color = Color(0.08, 0.05, 0.06, 1)
+color = Color(0.04, 0.04, 0.06, 0.88)
 
-[node name="MarginContainer" type="MarginContainer" parent="."]
+[node name="CenterBox" type="VBoxContainer" parent="HUD/PanelGameOver"]
 layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -220.0
+offset_top = -180.0
+offset_right = 220.0
+offset_bottom = 180.0
 grow_horizontal = 2
 grow_vertical = 2
-theme_override_constants/margin_left = 32
-theme_override_constants/margin_top = 40
-theme_override_constants/margin_right = 32
-theme_override_constants/margin_bottom = 40
-
-[node name="VBox" type="VBoxContainer" parent="MarginContainer"]
-layout_mode = 2
 theme_override_constants/separation = 20
-
-[node name="Header" type="HBoxContainer" parent="MarginContainer/VBox"]
-layout_mode = 2
-
-[node name="BtnBack" type="Button" parent="MarginContainer/VBox/Header"]
-custom_minimum_size = Vector2(100, 48)
-layout_mode = 2
-theme_override_font_sizes/font_size = 16
-text = "< BACK"
-
-[node name="LabelTitle" type="Label" parent="MarginContainer/VBox/Header"]
-layout_mode = 2
-size_flags_horizontal = 3
-theme_override_colors/font_color = Color(1, 0.2, 0.33, 1)
-theme_override_font_sizes/font_size = 24
-text = "BATTLE ARENA"
-horizontal_alignment = 2
-
-[node name="CenterBox" type="VBoxContainer" parent="MarginContainer/VBox"]
-layout_mode = 2
-size_flags_vertical = 3
 alignment = 1
 
-[node name="LabelTerritory" type="Label" parent="MarginContainer/VBox/CenterBox"]
+[node name="LabelResultTitle" type="Label" parent="HUD/PanelGameOver/CenterBox"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_colors/font_color = Color(0.17, 0.91, 0.47, 1)
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_constants/shadow_offset_x = 4
+theme_override_constants/shadow_offset_y = 4
+theme_override_font_sizes/font_size = 46
+text = "VICTORY!"
+horizontal_alignment = 1
+
+[node name="LabelResultSubtitle" type="Label" parent="HUD/PanelGameOver/CenterBox"]
 unique_name_in_owner = true
 layout_mode = 2
 theme_override_colors/font_color = Color(1, 0.82, 0.25, 1)
-theme_override_font_sizes/font_size = 22
-text = "TERRITORY: NONE"
+theme_override_font_sizes/font_size = 18
+text = "TERRITORY CLAIMED!
++$250 CASH  +25 REP"
 horizontal_alignment = 1
 
-[node name="LabelDesc" type="Label" parent="MarginContainer/VBox/CenterBox"]
+[node name="Spacer" type="Control" parent="HUD/PanelGameOver/CenterBox"]
+custom_minimum_size = Vector2(0, 16)
 layout_mode = 2
-theme_override_colors/font_color = Color(0.65, 0.65, 0.75, 1)
-theme_override_font_sizes/font_size = 16
-text = "Vertical slice 2-lane battle arena targets Phase 1.
-Foundation & scene routing active."
-horizontal_alignment = 1
 
-[connection signal="pressed" from="MarginContainer/VBox/Header/BtnBack" to="." method="_on_back_pressed"]
+[node name="BtnRematch" type="Button" parent="HUD/PanelGameOver/CenterBox"]
+custom_minimum_size = Vector2(0, 56)
+layout_mode = 2
+theme_override_colors/font_color = Color(0.17, 0.91, 0.47, 1)
+theme_override_font_sizes/font_size = 20
+text = "PLAY AGAIN"
+
+[node name="BtnReturn" type="Button" parent="HUD/PanelGameOver/CenterBox"]
+custom_minimum_size = Vector2(0, 56)
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_font_sizes/font_size = 18
+text = "RETURN TO CAMPAIGN"
+
+[connection signal="pressed" from="HUD/TopBar/HBox/BtnRetreat" to="." method="_on_return_pressed"]
+[connection signal="pressed" from="HUD/BottomDock/VBox/DeckContainer/HBox/CardSlotsContainer/CardBtn0" to="." method="_on_card_slot_pressed" binds= [0]]
+[connection signal="pressed" from="HUD/BottomDock/VBox/DeckContainer/HBox/CardSlotsContainer/CardBtn1" to="." method="_on_card_slot_pressed" binds= [1]]
+[connection signal="pressed" from="HUD/BottomDock/VBox/DeckContainer/HBox/CardSlotsContainer/CardBtn2" to="." method="_on_card_slot_pressed" binds= [2]]
+[connection signal="pressed" from="HUD/BottomDock/VBox/DeckContainer/HBox/CardSlotsContainer/CardBtn3" to="." method="_on_card_slot_pressed" binds= [3]]
+[connection signal="pressed" from="HUD/PanelGameOver/CenterBox/BtnRematch" to="." method="_on_rematch_pressed"]
+[connection signal="pressed" from="HUD/PanelGameOver/CenterBox/BtnReturn" to="." method="_on_return_pressed"]

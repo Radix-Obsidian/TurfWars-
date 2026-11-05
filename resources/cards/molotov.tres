@@ -1,0 +1,29 @@
+[gd_resource type="Resource" script_class="CardData" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://scripts/data/card_data.gd" id="1_card"]
+
+[resource]
+script = ExtResource("1_card")
+id = "molotov"
+display_name = "Molotov"
+description = "Shatters into a devastating burst of flame, scorching all enemy units in the impact zone."
+card_type = 1
+elixir_cost = 4
+rarity = 1
+movement_type = 2
+target_type = 3
+base_hp = 0
+base_damage = 0
+attack_interval = 0.0
+attack_range = 0.0
+move_speed = 0.0
+is_splash = true
+splash_radius = 100.0
+spell_radius = 100.0
+base_spell_damage = 220
+spell_duration = 0.6
+spawn_count = 0
+spawn_unit_id = ""
+accent_color = Color(1, 0.45, 0.1, 1)
+hp_growth_per_level = 0.0
+damage_growth_per_level = 0.1

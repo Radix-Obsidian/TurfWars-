@@ -19,13 +19,23 @@ func _initialize_default_data() -> void:
 		"rep": 0,
 		"heat": 0,
 		"owned_territories": [],
-		"active_deck": ["street_runner", "brickwall", "chem_thrower", "enforcer"],
-		"unlocked_cards": ["street_runner", "brickwall", "chem_thrower", "enforcer"],
+		"active_deck": [
+			"street_runner", "brickwall", "chem_thrower", "enforcer",
+			"lookout", "rooftop_racer", "molotov", "supply_drop"
+		],
+		"unlocked_cards": [
+			"street_runner", "brickwall", "chem_thrower", "enforcer",
+			"lookout", "rooftop_racer", "molotov", "supply_drop"
+		],
 		"card_levels": {
 			"street_runner": 1,
 			"brickwall": 1,
 			"chem_thrower": 1,
-			"enforcer": 1
+			"enforcer": 1,
+			"lookout": 1,
+			"rooftop_racer": 1,
+			"molotov": 1,
+			"supply_drop": 1
 		},
 		"last_save_time": Time.get_unix_time_from_system()
 	}
@@ -66,6 +76,15 @@ func load_game() -> bool:
 
 	if json.data is Dictionary:
 		data = json.data
+		var starter_cards: Array = [
+			"street_runner", "brickwall", "chem_thrower", "enforcer",
+			"lookout", "rooftop_racer", "molotov", "supply_drop"
+		]
+		var cur_deck: Array = data.get("active_deck", [])
+		for cid in starter_cards:
+			if not cur_deck.has(cid):
+				cur_deck.append(cid)
+		data["active_deck"] = cur_deck
 		EventBus.save_loaded.emit(true)
 		return true
 

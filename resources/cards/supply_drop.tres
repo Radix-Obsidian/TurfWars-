@@ -1,0 +1,29 @@
+[gd_resource type="Resource" script_class="CardData" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://scripts/data/card_data.gd" id="1_card"]
+
+[resource]
+script = ExtResource("1_card")
+id = "supply_drop"
+display_name = "Supply Drop"
+description = "Airdrops medical stims and emergency street backup. Heals nearby allies for 140 HP."
+card_type = 1
+elixir_cost = 3
+rarity = 1
+movement_type = 2
+target_type = 3
+base_hp = 0
+base_damage = 0
+attack_interval = 0.0
+attack_range = 0.0
+move_speed = 0.0
+is_splash = false
+splash_radius = 0.0
+spell_radius = 90.0
+base_spell_damage = 140
+spell_duration = 0.5
+spawn_count = 1
+spawn_unit_id = "street_runner"
+accent_color = Color(0.15, 0.95, 0.75, 1)
+hp_growth_per_level = 0.0
+damage_growth_per_level = 0.1
