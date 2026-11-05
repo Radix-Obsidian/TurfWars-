@@ -24,7 +24,10 @@
 | **VERTICAL_PHASES.md** | Strict phase-by-phase development process |
 | **AGENT.md** | Direct instructions for the AI coding agent |
 | **ANTI_DRIFT.md** | Non-negotiable rules to prevent scope & style drift |
+| **art_references/** | **THE ACTUAL VISUAL TARGET** – four locked mockup images the game must look like |
 | **README.md** | This file |
+
+**Critical:** The `art_references/` folder contains the real screenshots. Text descriptions alone are not enough. Codex must treat those four images as the absolute style guide.
 
 ---
 

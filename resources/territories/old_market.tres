@@ -1,0 +1,18 @@
+[gd_resource type="Resource" script_class="TerritoryData" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://scripts/data/territory_data.gd" id="1_terr"]
+
+[resource]
+script = ExtResource("1_terr")
+id = "old_market"
+display_name = "OLD MARKET"
+region = "region_01"
+base_income_per_hour = 1400
+map_position = Vector2(380, 690)
+unlock_rep_required = 40
+difficulty_rating = 2
+ai_deck_id = "ai_starter"
+speed_multiplier = 1.08
+initial_state = 0
+crest_icon = "scales"
+crew_flavor = "Black Market Stalls"

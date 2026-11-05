@@ -13,11 +13,13 @@ Any AI agent or human developer must obey these rules.
 - No base-building beyond the existing Idle Hub.
 - No new major systems not listed in PRD/PLAN without explicit human approval.
 
-## 2. Art Direction Lock
-- The visual style is permanently locked to the dark gritty cartoon + neon arcade look from the POC mockups.
-- Do not clean it up into a bright, cute, or realistic style.
-- Do not introduce different art styles for different screens.
-- Thick outlines, dirty saturated colors, rainy neon atmosphere are mandatory.
+## 2. Art Direction Lock (CRITICAL)
+- The visual style is permanently locked to the four reference images in the `art_references/` folder.
+- Those images are the single source of truth.
+- The style is: Dark, rainy, neon-gritty cartoon with thick black outlines, dirty saturated colors, adult street-crew energy.
+- **FORBIDDEN**: cute, childish, bright, soft, clean, colorful kids-game look, anime-cute, chibi, or anything that feels light-hearted.
+- Do not clean it up. Do not brighten it. Do not make characters friendlier.
+- Every new visual must pass the test: “Does this look like it belongs next to the four reference images?” If no, reject it.
 
 ## 3. Architecture Lock
 - Stay on Godot 4. Do not suggest migrating to Unity, Unreal, or web-only.

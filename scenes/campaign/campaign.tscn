@@ -1,6 +1,7 @@
-[gd_scene load_steps=2 format=3]
+[gd_scene load_steps=3 format=3]
 
-[ext_resource type="Script" path="res://scripts/campaign/campaign_scene.gd" id="1_campaign"]
+[ext_resource type="Script" path="res://scripts/campaign/campaign_scene.gd" id="1_scene"]
+[ext_resource type="Script" path="res://scripts/campaign/campaign_map_view.gd" id="2_map"]
 
 [node name="Campaign" type="Control"]
 layout_mode = 3
@@ -9,79 +10,227 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-script = ExtResource("1_campaign")
+script = ExtResource("1_scene")
 
-[node name="Background" type="ColorRect" parent="."]
+[node name="CampaignMapView" type="Node2D" parent="."]
+unique_name_in_owner = true
+script = ExtResource("2_map")
+
+[node name="HUD" type="CanvasLayer" parent="."]
+
+[node name="TopBar" type="MarginContainer" parent="HUD"]
+anchors_preset = 10
+anchor_right = 1.0
+offset_bottom = 88.0
+grow_horizontal = 2
+theme_override_constants/margin_left = 12
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 12
+
+[node name="TopBarBackground" type="ColorRect" parent="HUD/TopBar"]
+layout_mode = 2
+color = Color(0.06, 0.06, 0.08, 0.92)
+
+[node name="HBox" type="HBoxContainer" parent="HUD/TopBar"]
+layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="AvatarBox" type="HBoxContainer" parent="HUD/TopBar/HBox"]
+layout_mode = 2
+theme_override_constants/separation = 8
+
+[node name="BtnBack" type="Button" parent="HUD/TopBar/HBox/AvatarBox"]
+custom_minimum_size = Vector2(40, 44)
+layout_mode = 2
+focus_mode = 0
+theme_override_font_sizes/font_size = 18
+text = "<"
+
+[node name="AvatarFrame" type="ColorRect" parent="HUD/TopBar/HBox/AvatarBox"]
+custom_minimum_size = Vector2(44, 44)
+layout_mode = 2
+color = Color(0.12, 0.14, 0.18, 1)
+
+[node name="AvatarLabel" type="Label" parent="HUD/TopBar/HBox/AvatarBox/AvatarFrame"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-color = Color(0.05, 0.07, 0.09, 1)
+theme_override_font_sizes/font_size = 22
+text = "🧔"
+horizontal_alignment = 1
+vertical_alignment = 1
 
-[node name="MarginContainer" type="MarginContainer" parent="."]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-theme_override_constants/margin_left = 32
-theme_override_constants/margin_top = 40
-theme_override_constants/margin_right = 32
-theme_override_constants/margin_bottom = 40
-
-[node name="VBox" type="VBoxContainer" parent="MarginContainer"]
+[node name="ProfileText" type="VBoxContainer" parent="HUD/TopBar/HBox/AvatarBox"]
 layout_mode = 2
-theme_override_constants/separation = 20
-
-[node name="Header" type="HBoxContainer" parent="MarginContainer/VBox"]
-layout_mode = 2
-
-[node name="BtnBack" type="Button" parent="MarginContainer/VBox/Header"]
-custom_minimum_size = Vector2(100, 48)
-layout_mode = 2
-theme_override_font_sizes/font_size = 16
-text = "< BACK"
-
-[node name="LabelTitle" type="Label" parent="MarginContainer/VBox/Header"]
-layout_mode = 2
-size_flags_horizontal = 3
-theme_override_colors/font_color = Color(0.17, 0.91, 0.47, 1)
-theme_override_font_sizes/font_size = 24
-text = "CAMPAIGN MAP"
-horizontal_alignment = 2
-
-[node name="CenterBox" type="VBoxContainer" parent="MarginContainer/VBox"]
-layout_mode = 2
-size_flags_vertical = 3
+theme_override_constants/separation = 2
 alignment = 1
 
-[node name="LabelStatus" type="Label" parent="MarginContainer/VBox/CenterBox"]
+[node name="LabelName" type="Label" parent="HUD/TopBar/HBox/AvatarBox/ProfileText"]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_constants/shadow_offset_x = 2
+theme_override_constants/shadow_offset_y = 2
+theme_override_font_sizes/font_size = 16
+text = "GRITZ  LVL 12"
+
+[node name="LabelCrew" type="Label" parent="HUD/TopBar/HBox/AvatarBox/ProfileText"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.55, 0.70, 0.65, 1)
+theme_override_font_sizes/font_size = 11
+text = "🛡️ THE SOUTH SIDE CREW"
+
+[node name="Spacer" type="Control" parent="HUD/TopBar/HBox"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="StatsBox" type="HBoxContainer" parent="HUD/TopBar/HBox"]
+layout_mode = 2
+theme_override_constants/separation = 12
+
+[node name="LabelCashTop" type="Label" parent="HUD/TopBar/HBox/StatsBox"]
+unique_name_in_owner = true
 layout_mode = 2
 theme_override_colors/font_color = Color(1, 0.82, 0.25, 1)
-theme_override_font_sizes/font_size = 20
-text = "DISTRICT 1: THE SLUMS"
-horizontal_alignment = 1
-
-[node name="LabelDesc" type="Label" parent="MarginContainer/VBox/CenterBox"]
-layout_mode = 2
-theme_override_colors/font_color = Color(0.65, 0.65, 0.75, 1)
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_constants/shadow_offset_x = 2
+theme_override_constants/shadow_offset_y = 2
 theme_override_font_sizes/font_size = 15
-text = "Territory nodes & claim mechanics will be expanded in Phase 2."
+text = "$ 24,750 +"
+
+[node name="LabelRepTop" type="Label" parent="HUD/TopBar/HBox/StatsBox"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_colors/font_color = Color(0.75, 0.25, 0.95, 1)
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_constants/shadow_offset_x = 2
+theme_override_constants/shadow_offset_y = 2
+theme_override_font_sizes/font_size = 15
+text = "💀 3,250 REP +"
+
+[node name="BottomConsole" type="Control" parent="HUD"]
+layout_mode = 3
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -180.0
+grow_horizontal = 2
+grow_vertical = 0
+
+[node name="Backdrop" type="ColorRect" parent="HUD/BottomConsole"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.08, 0.08, 0.10, 0.98)
+
+[node name="TopBorder" type="ColorRect" parent="HUD/BottomConsole"]
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_bottom = 4.0
+grow_horizontal = 2
+color = Color(0.24, 0.25, 0.32, 1)
+
+[node name="VBox" type="VBoxContainer" parent="HUD/BottomConsole"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 6
+
+[node name="InfoBanner" type="MarginContainer" parent="HUD/BottomConsole/VBox"]
+layout_mode = 2
+theme_override_constants/margin_left = 16
+theme_override_constants/margin_top = 6
+theme_override_constants/margin_right = 16
+
+[node name="LabelSelectedInfo" type="Label" parent="HUD/BottomConsole/VBox/InfoBanner"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 0.82, 0.25, 1)
+theme_override_font_sizes/font_size = 13
+text = "SELECTED: THE EAST CREW • REWARD: +$1,600 /HR"
 horizontal_alignment = 1
 
-[node name="Spacer" type="Control" parent="MarginContainer/VBox/CenterBox"]
-custom_minimum_size = Vector2(0, 20)
+[node name="ConsoleHBox" type="HBoxContainer" parent="HUD/BottomConsole/VBox"]
 layout_mode = 2
+size_flags_vertical = 3
+theme_override_constants/separation = 12
 
-[node name="BtnLaunchTerritory" type="Button" parent="MarginContainer/VBox/CenterBox"]
-custom_minimum_size = Vector2(0, 54)
+[node name="CashPanel" type="MarginContainer" parent="HUD/BottomConsole/VBox/ConsoleHBox"]
+custom_minimum_size = Vector2(170, 0)
 layout_mode = 2
-theme_override_colors/font_color = Color(1, 0.2, 0.33, 1)
-theme_override_font_sizes/font_size = 18
-text = "SCOUT & ATTACK BLOCK 01"
+theme_override_constants/margin_left = 14
+theme_override_constants/margin_bottom = 10
 
-[connection signal="pressed" from="MarginContainer/VBox/Header/BtnBack" to="." method="_on_back_pressed"]
-[connection signal="pressed" from="MarginContainer/VBox/CenterBox/BtnLaunchTerritory" to="." method="_on_attack_territory_pressed" binds= ["block_01"]]
+[node name="VBox" type="VBoxContainer" parent="HUD/BottomConsole/VBox/ConsoleHBox/CashPanel"]
+layout_mode = 2
+alignment = 1
+
+[node name="LabelCashBottom" type="Label" parent="HUD/BottomConsole/VBox/ConsoleHBox/CashPanel/VBox"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 0.82, 0.25, 1)
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_constants/shadow_offset_x = 2
+theme_override_constants/shadow_offset_y = 2
+theme_override_font_sizes/font_size = 20
+text = "💰 $ 24,750"
+
+[node name="LabelCashSub" type="Label" parent="HUD/BottomConsole/VBox/ConsoleHBox/CashPanel/VBox"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.65, 0.65, 0.70, 1)
+theme_override_font_sizes/font_size = 12
+text = "CASH ON HAND"
+
+[node name="HeatPanel" type="VBoxContainer" parent="HUD/BottomConsole/VBox/ConsoleHBox"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 4
+alignment = 1
+
+[node name="LabelHeatHeader" type="Label" parent="HUD/BottomConsole/VBox/ConsoleHBox/HeatPanel"]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 0.45, 0.15, 1)
+theme_override_font_sizes/font_size = 13
+text = "HEAT: 🔥🔥🔥🔥🔥"
+
+[node name="HeatProgressBar" type="ProgressBar" parent="HUD/BottomConsole/VBox/ConsoleHBox/HeatPanel"]
+custom_minimum_size = Vector2(0, 12)
+layout_mode = 2
+max_value = 100.0
+value = 75.0
+show_percentage = false
+
+[node name="LabelHeatStatus" type="Label" parent="HUD/BottomConsole/VBox/ConsoleHBox/HeatPanel"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.95, 0.35, 0.25, 1)
+theme_override_font_sizes/font_size = 11
+text = "HOT • COPS ON ALERT"
+
+[node name="AttackButtonPanel" type="MarginContainer" parent="HUD/BottomConsole/VBox/ConsoleHBox"]
+custom_minimum_size = Vector2(250, 0)
+layout_mode = 2
+theme_override_constants/margin_right = 14
+theme_override_constants/margin_bottom = 12
+
+[node name="BtnAttackTerritory" type="Button" parent="HUD/BottomConsole/VBox/ConsoleHBox/AttackButtonPanel"]
+unique_name_in_owner = true
+layout_mode = 2
+focus_mode = 0
+theme_override_colors/font_color = Color(1, 0.25, 0.35, 1)
+theme_override_font_sizes/font_size = 16
+text = "ATTACK TERRITORY
+⚔️ THE EAST CREW ⚔️"
+
+[connection signal="pressed" from="HUD/TopBar/HBox/AvatarBox/BtnBack" to="." method="_on_back_to_menu_pressed"]
+[connection signal="pressed" from="HUD/BottomConsole/VBox/ConsoleHBox/AttackButtonPanel/BtnAttackTerritory" to="." method="_on_attack_territory_pressed"]

@@ -1,0 +1,18 @@
+[gd_resource type="Resource" script_class="TerritoryData" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://scripts/data/territory_data.gd" id="1_terr"]
+
+[resource]
+script = ExtResource("1_terr")
+id = "the_pit"
+display_name = "THE PIT"
+region = "region_01"
+base_income_per_hour = 1500
+map_position = Vector2(530, 520)
+unlock_rep_required = 50
+difficulty_rating = 2
+ai_deck_id = "ai_starter"
+speed_multiplier = 1.10
+initial_state = 1
+crest_icon = "money"
+crew_flavor = "Underground Fight Ring"

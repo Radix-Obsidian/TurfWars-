@@ -19,10 +19,17 @@ You must follow the documents in this folder strictly.
 
 ## Core Directives
 
-### 1. Art & Feel
-- Match the locked visual style exactly (dark gritty cartoon, thick outlines, neon, dirty saturated colors).
-- When creating UI or requesting art, always reference the style.
-- Prioritize readable, juicy, arcade feel in battle.
+### 1. Art & Feel (CRITICAL – HIGHEST PRIORITY AFTER ANTI_DRIFT)
+- The four images in the `art_references/` folder are the **absolute visual source of truth**.
+- Files:
+  - art_references/01_campaign_map.jpg
+  - art_references/02_idle_hub.jpg
+  - art_references/03_battle_arena.jpg
+  - art_references/04_collection_screen.jpg
+- Every screen, character, card, UI element, and effect **must** look like it belongs in the same game as those four images.
+- Style: Dark, rainy, neon-gritty cartoon. Thick black outlines. Dirty saturated colors. Adult street-crew energy. Arcade juice.
+- **REJECT and redo** anything that looks cute, childish, bright, soft, clean, colorful-in-a-kids-way, or anime-cute.
+- When generating or describing art, always explicitly say: "Match the exact style of the images in art_references/."
 
 ### 2. Architecture Rules
 - Use Godot 4 best practices.

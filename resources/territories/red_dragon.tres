@@ -1,0 +1,18 @@
+[gd_resource type="Resource" script_class="TerritoryData" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://scripts/data/territory_data.gd" id="1_terr"]
+
+[resource]
+script = ExtResource("1_terr")
+id = "red_dragon"
+display_name = "RED DRAGON HOLDINGS"
+region = "region_01"
+base_income_per_hour = 1800
+map_position = Vector2(510, 260)
+unlock_rep_required = 100
+difficulty_rating = 3
+ai_deck_id = "ai_heavy"
+speed_multiplier = 1.15
+initial_state = 2
+crest_icon = "dragon"
+crew_flavor = "Triad Smuggling Syndicate"

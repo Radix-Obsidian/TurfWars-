@@ -1,0 +1,18 @@
+[gd_resource type="Resource" script_class="TerritoryData" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://scripts/data/territory_data.gd" id="1_terr"]
+
+[resource]
+script = ExtResource("1_terr")
+id = "the_yard"
+display_name = "THE YARD"
+region = "region_01"
+base_income_per_hour = 1250
+map_position = Vector2(250, 240)
+unlock_rep_required = 0
+difficulty_rating = 1
+ai_deck_id = "ai_starter"
+speed_multiplier = 1.05
+initial_state = 1
+crest_icon = "factory"
+crew_flavor = "Industrial Scrapyard"

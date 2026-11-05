@@ -1,0 +1,18 @@
+[gd_resource type="Resource" script_class="TerritoryData" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://scripts/data/territory_data.gd" id="1_terr"]
+
+[resource]
+script = ExtResource("1_terr")
+id = "no_mans_block"
+display_name = "NO MAN'S BLOCK"
+region = "region_01"
+base_income_per_hour = 1100
+map_position = Vector2(360, 440)
+unlock_rep_required = 0
+difficulty_rating = 2
+ai_deck_id = "ai_swarm"
+speed_multiplier = 1.08
+initial_state = 0
+crest_icon = "question"
+crew_flavor = "Contested Street Ruins"

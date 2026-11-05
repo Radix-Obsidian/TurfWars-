@@ -3,32 +3,48 @@
 
 ---
 
-## 1. Art Direction (LOCKED)
+## 1. Art Direction (LOCKED – ABSOLUTE SOURCE OF TRUTH)
 
-**Style Keywords:** Dark gritty cartoon, neon-noir, thick black outlines, dirty saturated colors, arcade energy, exaggerated street characters.
+**THIS IS THE MOST IMPORTANT SECTION.**
+
+The game **must** look exactly like the four reference images located in:
+
+`art_references/`
+
+- `01_campaign_map.jpg`
+- `02_idle_hub.jpg`
+- `03_battle_arena.jpg`
+- `04_collection_screen.jpg`
+
+These images are the **final visual target**. Any deviation into cute, childish, bright, clean, or cartoony-in-a-kids-game way is a critical failure.
+
+**Style Keywords:** Dark gritty cartoon, neon-noir, thick black outlines, dirty saturated colors, arcade energy, exaggerated street characters, rainy night atmosphere, grunge, underground crew aesthetic.
 
 **Color Palette (Core):**
 - Deep blacks and dark grays for backgrounds
-- Toxic green / neon green (player controlled)
+- Toxic / neon green (player controlled territories & UI)
 - Blood / warning red (enemy)
-- Electric purple / magenta (special, elixir, neon)
+- Electric purple / magenta (special, elixir, neon lights)
 - Dirty yellow / gold for currency
 - Muted dirty blues and oranges for accents
 
 **Character Style:**
 - Chunky, readable silhouettes
 - Exaggerated proportions
-- Streetwear + tactical gear mix
-- Strong personality in every unit
+- Streetwear + tactical / gang gear mix
+- Strong, slightly menacing personality in every unit
+- NOT cute. NOT childish. NOT soft.
 
 **UI Style:**
-- Heavy outlines
-- Slight grunge / wear
+- Heavy black outlines
+- Slight grunge / dirt / wear
 - Clear hierarchy
 - Big readable numbers
-- Satisfying button feedback
+- Satisfying arcade button feedback
+- Dark panels with neon accents
 
-**Reference:** The four locked POC mockups are the absolute source of truth. Any new art must match them.
+**Mandatory Rule:**  
+Before creating or approving any visual (UI, character, environment, card, effect), compare it directly against the four reference images in `art_references/`. If it does not feel like it belongs in the same game as those images, reject it.
 
 ---
 

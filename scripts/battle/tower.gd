@@ -2,6 +2,8 @@ class_name Tower
 extends Area2D
 
 ## Defensive Crown Tower and HQ for Turf Wars
+## Matches locked reference mockup 01_campaign_map.jpg:
+## Layered brick & metal forts, skull crest shields, spotlights, and sandbags.
 
 signal destroyed(tower: Tower)
 signal damaged(tower: Tower, current: int, max_val: int)
@@ -13,32 +15,30 @@ enum Lane { LEFT = 0, RIGHT = 1, CENTER = 2 }
 @export var team: Team = Team.PLAYER
 @export var tower_type: TowerType = TowerType.CROWN_TOWER
 @export var lane: Lane = Lane.LEFT
-@export var max_hp: int = 1400
-@export var attack_damage: int = 50
+@export var max_hp: int = 3052
+@export var attack_damage: int = 55
 @export var attack_interval: float = 0.8
-@export var attack_range: float = 185.0
+@export var attack_range: float = 190.0
 
-var current_hp: int = 1400
+var current_hp: int = 3052
 var attack_timer: float = 0.0
 var target: Node2D = null
 var is_destroyed: bool = false
-var is_active: bool = true # HQ activates when attacked or when a friendly crown tower falls
+var is_active: bool = true
 var hit_flash_timer: float = 0.0
 var arena: Node = null
 
-# Visual dimensions
-var tower_size: Vector2 = Vector2(56, 56)
+var tower_size: Vector2 = Vector2(68, 68)
 
 func _ready() -> void:
 	if tower_type == TowerType.HQ:
-		max_hp = 2400
-		attack_damage = 70
-		attack_range = 215.0
-		tower_size = Vector2(76, 76)
-		is_active = false # Activates when provoked or lane tower falls
+		max_hp = 4126
+		attack_damage = 75
+		attack_range = 225.0
+		tower_size = Vector2(100, 80)
+		is_active = false
 	current_hp = max_hp
 
-	# Setup collision shape dynamically if not preset
 	var col := CollisionShape2D.new()
 	var rect := RectangleShape2D.new()
 	rect.size = tower_size
@@ -89,7 +89,7 @@ func _attack_target() -> void:
 	if not is_instance_valid(target) or not arena:
 		return
 
-	var proj_color: Color = Color(0.17, 0.91, 0.47) if team == Team.PLAYER else Color(1, 0.25, 0.35)
+	var proj_color: Color = Color(0.17, 0.91, 0.47) if team == Team.PLAYER else Color(0.85, 0.25, 0.95)
 	if arena.has_method("spawn_projectile"):
 		arena.spawn_projectile(global_position, target, attack_damage, team, proj_color)
 
@@ -100,7 +100,6 @@ func take_damage(amount: int) -> void:
 	if is_destroyed:
 		return
 
-	# Damage activates the HQ if dormant
 	if not is_active:
 		is_active = true
 
@@ -131,61 +130,113 @@ func _draw() -> void:
 	var base_rect := Rect2(-half, tower_size)
 
 	if is_destroyed:
-		# Rubble appearance
-		draw_rect(base_rect, Color(0.12, 0.12, 0.15), true)
-		draw_rect(base_rect, Color(0.05, 0.05, 0.07), false, 3.0)
-		# Debris cross
-		draw_line(-half, half, Color(0.2, 0.2, 0.25), 3.0)
-		draw_line(Vector2(-half.x, half.y), Vector2(half.x, -half.y), Color(0.2, 0.2, 0.25), 3.0)
+		# Rubble appearance with cracked stones
+		draw_rect(base_rect, Color(0.10, 0.10, 0.12), true)
+		draw_rect(base_rect, Color(0.04, 0.04, 0.06), false, 3.0)
+		draw_line(-half, half, Color(0.18, 0.18, 0.22), 3.0)
+		draw_line(Vector2(-half.x, half.y), Vector2(half.x, -half.y), Color(0.18, 0.18, 0.22), 3.0)
 		return
 
-	# Color scheme based on team & state
-	var team_accent: Color = Color(0.17, 0.91, 0.47) if team == Team.PLAYER else Color(1, 0.2, 0.33)
-	var body_color: Color = Color(0.18, 0.20, 0.26) if team == Team.PLAYER else Color(0.24, 0.16, 0.18)
+	var crest_color: Color = Color(0.17, 0.91, 0.47) if team == Team.PLAYER else Color(0.85, 0.25, 0.95)
+	var brick_color: Color = Color(0.16, 0.14, 0.15) if team == Team.PLAYER else Color(0.20, 0.12, 0.18)
 
 	if hit_flash_timer > 0.0:
-		body_color = Color.WHITE
+		brick_color = Color.WHITE
 
-	# Outer shadow / outline
-	draw_rect(Rect2(-half - Vector2(3, 3), tower_size + Vector2(6, 6)), Color(0.04, 0.04, 0.06), true)
+	# Thick shadow outline
+	draw_rect(Rect2(-half - Vector2(3, 3), tower_size + Vector2(6, 6)), Color(0.02, 0.02, 0.03), true)
 
-	# Main Tower Base
-	draw_rect(base_rect, body_color, true)
+	# Main Layered Stone / Brick Base
+	draw_rect(base_rect, brick_color, true)
+	draw_rect(base_rect, Color(0.05, 0.05, 0.07), false, 3.0)
 
-	# Neon border
-	draw_rect(base_rect, team_accent, false, 2.5)
+	# Horizontal Layer lines for reinforced stonework
+	for i in range(1, 4):
+		var y := -half.y + (float(i) * (tower_size.y / 4.0))
+		draw_line(Vector2(-half.x, y), Vector2(half.x, y), Color(0.08, 0.07, 0.09), 2.0)
 
-	# Roof Battlements / Spire
 	if tower_type == TowerType.HQ:
-		# Crown symbol for HQ
-		var crown_pts := PackedVector2Array([
-			Vector2(-18, 10),
-			Vector2(-18, -10),
-			Vector2(-9, -2),
-			Vector2(0, -14),
-			Vector2(9, -2),
-			Vector2(18, -10),
-			Vector2(18, 10)
-		])
-		draw_colored_polygon(crown_pts, team_accent)
-		draw_polyline(crown_pts, Color(0, 0, 0), 2.0)
-	else:
-		# Crosshair / spotlight beacon
-		draw_circle(Vector2.ZERO, 10.0, Color(0.1, 0.1, 0.15))
-		draw_circle(Vector2.ZERO, 6.0, team_accent)
-		draw_line(Vector2(-16, 0), Vector2(16, 0), team_accent, 2.0)
-		draw_line(Vector2(0, -16), Vector2(0, 16), team_accent, 2.0)
+		# Central Bunker Structure (Mockup 01)
+		if team == Team.PLAYER:
+			# Arched entrance with glowing lantern
+			draw_circle(Vector2(0, 10), 14.0, Color(0.08, 0.18, 0.12))
+			draw_circle(Vector2(0, -6), 5.0, Color(1, 0.8, 0.3)) # Lantern glow
+			# Sandbags at base
+			for s in range(-3, 4):
+				draw_rect(Rect2(float(s) * 14.0 - 6.0, half.y - 8.0, 12.0, 7.0), Color(0.35, 0.30, 0.22), true)
+				draw_rect(Rect2(float(s) * 14.0 - 6.0, half.y - 8.0, 12.0, 7.0), Color(0.12, 0.10, 0.07), false, 1.5)
+		else:
+			# Enemy Barbed wire on roof + spotlights
+			draw_line(Vector2(-half.x, -half.y - 4), Vector2(half.x, -half.y - 4), Color(0.3, 0.3, 0.35), 2.0)
+			for b in range(-3, 4):
+				var bx := float(b) * 14.0
+				draw_line(Vector2(bx - 3, -half.y - 7), Vector2(bx + 3, -half.y - 1), Color(0.5, 0.5, 0.55), 1.5)
 
-	# Overhead Health Bar
-	var bar_w := tower_size.x + 12.0
-	var bar_h := 7.0
-	var bar_pos := Vector2(-bar_w * 0.5, -half.y - 14.0)
+		# Big Skull Crest in Center of HQ
+		_draw_shield_crest(Vector2(0, -14), crest_color, 24.0, true)
+	else:
+		# Crown Tower Crest Shield
+		_draw_shield_crest(Vector2(0, -8), crest_color, 18.0, false)
+
+	# Overhead HP Bar with badge (Exact style of Mockup 01: [2] 3052)
+	var bar_w := tower_size.x + 14.0
+	var bar_h := 10.0
+	var bar_pos := Vector2(-bar_w * 0.5, half.y + 4.0 if team == Team.ENEMY else -half.y - 20.0)
 	var pct := clampf(float(current_hp) / float(max_hp), 0.0, 1.0)
 
-	# Bar shadow & border
-	draw_rect(Rect2(bar_pos - Vector2(1, 1), Vector2(bar_w + 2, bar_h + 2)), Color(0, 0, 0, 0.9), true)
-	# Empty back
-	draw_rect(Rect2(bar_pos, Vector2(bar_w, bar_h)), Color(0.2, 0.2, 0.25), true)
+	# Black container box
+	draw_rect(Rect2(bar_pos - Vector2(1, 1), Vector2(bar_w + 2, bar_h + 2)), Color(0, 0, 0, 0.95), true)
+	draw_rect(Rect2(bar_pos, Vector2(bar_w, bar_h)), Color(0.18, 0.18, 0.22), true)
 	# Filled bar
-	var bar_col := Color(0.17, 0.91, 0.47) if team == Team.PLAYER else Color(1, 0.2, 0.33)
+	var bar_col: Color = Color(0.17, 0.91, 0.47) if team == Team.PLAYER else Color(0.85, 0.25, 0.95)
 	draw_rect(Rect2(bar_pos, Vector2(bar_w * pct, bar_h)), bar_col, true)
+
+	# HP Number Text
+	var font := ThemeDB.fallback_font
+	var hp_str := str(current_hp)
+	draw_string(font, bar_pos + Vector2(2, bar_h - 2), hp_str, HORIZONTAL_ALIGNMENT_CENTER, int(bar_w), 9, Color.WHITE)
+
+func _draw_shield_crest(pos: Vector2, col: Color, radius: float, is_hq: bool) -> void:
+	# Shield border
+	var pts := PackedVector2Array([
+		pos + Vector2(-radius, -radius * 0.6),
+		pos + Vector2(radius, -radius * 0.6),
+		pos + Vector2(radius * 0.8, radius * 0.6),
+		pos + Vector2(0, radius * 1.1),
+		pos + Vector2(-radius * 0.8, radius * 0.6)
+	])
+	# Black outline
+	draw_colored_polygon(pts, Color(0.04, 0.04, 0.06))
+	# Colored inner shield
+	var inner_pts := PackedVector2Array([
+		pos + Vector2(-radius + 2, -radius * 0.6 + 2),
+		pos + Vector2(radius - 2, -radius * 0.6 + 2),
+		pos + Vector2(radius * 0.8 - 2, radius * 0.6 - 2),
+		pos + Vector2(0, radius * 1.1 - 3),
+		pos + Vector2(-radius * 0.8 + 2, radius * 0.6 - 2)
+	])
+	draw_colored_polygon(inner_pts, col)
+
+	# Skull emblem inside shield
+	var skull_r := radius * 0.42
+	draw_circle(pos + Vector2(0, -radius * 0.05), skull_r, Color(0.06, 0.06, 0.08))
+	# Skull eyes
+	draw_circle(pos + Vector2(-skull_r * 0.45, -radius * 0.05), skull_r * 0.32, col)
+	draw_circle(pos + Vector2(skull_r * 0.45, -radius * 0.05), skull_r * 0.32, col)
+	# Teeth box
+	draw_rect(Rect2(pos.x - skull_r * 0.5, pos.y + skull_r * 0.3, skull_r, skull_r * 0.5), Color(0.06, 0.06, 0.08), true)
+
+	# Crown on top of shield
+	var crown_y := pos.y - radius * 0.65
+	var crown_w := radius * 0.9
+	var crown_pts := PackedVector2Array([
+		Vector2(pos.x - crown_w, crown_y),
+		Vector2(pos.x - crown_w, crown_y - 7),
+		Vector2(pos.x - crown_w * 0.5, crown_y - 3),
+		Vector2(pos.x, crown_y - 10),
+		Vector2(pos.x + crown_w * 0.5, crown_y - 3),
+		Vector2(pos.x + crown_w, crown_y - 7),
+		Vector2(pos.x + crown_w, crown_y)
+	])
+	draw_colored_polygon(crown_pts, Color(1, 0.82, 0.25))
+	draw_polyline(crown_pts, Color.BLACK, 1.5)

@@ -1,0 +1,18 @@
+[gd_resource type="Resource" script_class="TerritoryData" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://scripts/data/territory_data.gd" id="1_terr"]
+
+[resource]
+script = ExtResource("1_terr")
+id = "the_east_crew"
+display_name = "THE EAST CREW"
+region = "region_01"
+base_income_per_hour = 1600
+map_position = Vector2(180, 680)
+unlock_rep_required = 75
+difficulty_rating = 2
+ai_deck_id = "ai_heavy"
+speed_multiplier = 1.12
+initial_state = 2
+crest_icon = "skull"
+crew_flavor = "East Side Enforcers"

@@ -194,7 +194,7 @@ func _update_card_ui() -> void:
 			btn.visible = false
 
 	if slot_next_card and player_next_card:
-		slot_next_card.text = "NEXT:\n%s [%d]" % [player_next_card.display_name, player_next_card.elixir_cost]
+		slot_next_card.text = "NEXT: 🧪 %s [%d⚡]  ⏳ 00:08" % [player_next_card.display_name, player_next_card.elixir_cost]
 
 func _unhandled_input(event: InputEvent) -> void:
 	if not is_match_active:
